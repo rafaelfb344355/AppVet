@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Animal Registration</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Animal Registration</h1>
+
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" type="text" placeholder="Enter the name">
+      </div>
+      <div class="form-group">
+        <label for="specie">Specie</label>
+        <input id="specie" class="form-control" type="text" placeholder="Enter the specie">
+      </div>
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input id="age" class="form-control" type="text" placeholder="Enter the age">
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight</label>
+        <input id="weight" class="form-control" type="text" placeholder="Enter the weight">
+      </div>
+      <button class="btn btn-primary" type="button" onclick="registerAnimal()">Register</button>
+    </form>
+  </div>
+
+  <script>
+    function registerAnimal() {
+      var name = $('#name').val();
+      var specie = $('#specie').val();
+      var age = $('#age').val();
+      var weight = $('#weight').val();
+
+      // Fazer a lógica para enviar os dados para o servidor, como uma requisição AJAX
+
+      // Exemplo:
+      var data = {
+        name: name,
+        specie: specie,
+        age: age,
+        weight: weight
+      };
+
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://127.0.0.1:3000/Pet/add",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+        },
+        "data": JSON.stringify(data)
+      };
+
+      $.ajax(settings).done(function (response) {
+        // Lógica de manipulação da resposta
+        console.log(response);
+        alert("Animal registered successfully!");
+        // Limpar os campos do formulário
+        $('#name').val('');
+        $('#specie').val('');
+        $('#age').val('');
+        $('#weight').val('');
+      }).fail(function (xhr, textStatus, errorThrown) {
+        // Lógica de tratamento de erro
+        console.error(xhr.responseText);
+        alert("Failed to register animal. Please try again.");
+      });
+    }
+  </script>
+
+</body>
+
+</html>
